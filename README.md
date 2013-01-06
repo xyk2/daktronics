@@ -5,5 +5,5 @@ A python-based serial data analyzer for the Daktronics omnisport timing console.
 
 The console has an RTD port used normally for Venus scoreboards. It is just a simple 19200 baud 8N1 serial signal, and carries the running time, splits, and swimmer names.
 
-
-This is a software-based decoder; a hardware one is in the works.
+Schematic of the hardware-based decoder:
+<img src='https://github.com/xyk2/daktronics/blob/master/new_schematic.png'/>
