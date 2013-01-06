@@ -4,7 +4,11 @@ String oldString = "";
 char rxbuffer[BUFFER_STRING_SIZE];
 
 void setup() {
-  Serial.begin(19200);
+  UCSR0A = 1<<U2X0; // async
+  UCSR0B = (1<<RXCIE0) | (1<<UDRIE0) | (1<<RXEN0) | (1<<TXEN0); // enable RXTX, register interrupts
+  UCSR0C = (1<<UCSZ01) | (1<<UCSZ00); // 8 data bits
+  UBRR0L = 103; // 19.2k baud
+
   DDRB |= (1<<PORTB0); // status LED output
   DDRB |= (0<<PORTB1); // split switch input  
   if((PINB & (1<<PORTB1))) {
@@ -19,15 +23,11 @@ void setup() {
 void loop() {
   while(1) {
     while (Serial.available()) {
-      if(Serial.read() == 2) {
-        if(Serial.readBytesUntil((char)4, rxbuffer, BUFFER_STRING_SIZE)) { // if successful
+      if(Serial.read() == 2 && Serial.readBytesUntil((char)4, rxbuffer, BUFFER_STRING_SIZE)) {
           for(int x = 0; x < BUFFER_STRING_SIZE; x++) { // add chars to string
             if((int)rxbuffer[x] != 0) inputString += rxbuffer[x]; // skip null values; add to string
           }
           inputString.trim(); // remove leading and trailing whitespace
-          
-          char *p = rxbuffer;
-  
           if(inputString.indexOf(".") != -1) { // if string does not include time, skip
             if(inputString.length() <= 7) {
               Serial.print("t"); // t for time
@@ -43,7 +43,6 @@ void loop() {
           }
           inputString = "";
           memset(rxbuffer,0, BUFFER_STRING_SIZE); 
-        }
       }
     }
   }
@@ -51,7 +50,7 @@ void loop() {
 
 
 void RUN_TEST_MODE(void) {
-  for(int x=0; x<5000; x++) {
+  for(unsigned int x=0; x<5000; x++) {
     Serial.print("t");
     Serial.println(x*0.1, 1);
     if(x == 33) Serial.println("s5 1 3.36 2"); 

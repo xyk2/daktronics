@@ -5,12 +5,16 @@ String winning_time = "";
 byte TOTAL_LAPS = 10;
 
 void setup() {
-  Serial.begin(19200);
+  //Serial.begin(19200);
   inputString.reserve(BUFFER_STRING_SIZE);
   oldString.reserve(BUFFER_STRING_SIZE);
-    Serial.println("Serial Ports Registers");
-  Serial.println("----------------------");
+  UCSR0A = 1<<U2X0; // async
+  UCSR0B = (1<<RXCIE0) | (1<<UDRIE0) | (1<<RXEN0) | (1<<TXEN0);
+  UCSR0C = (1<<UCSZ01) | (1<<UCSZ00); // 8 data bits
+  //UBRR0L = 103;
   
+  Serial.println("Serial Ports Registers");
+  Serial.println("----------------------");
   Serial.print("UCSR0A: ");
   Serial.println(UCSR0A,BIN);
   Serial.print("UCSR0B: ");
@@ -26,9 +30,9 @@ void setup() {
 char rxbuffer[BUFFER_STRING_SIZE];
 
 void loop() {
-      Serial.println(!(UCSR0A & (1<<RXC0)));
-      Serial.println(Serial.available());
-  delay(100);
+      //Serial.println(!(UCSR0A & (1<<RXC0)));
+    //  Serial.println(Serial.available());
+ // delay(100);
   /*while (Serial.available()) {
     if(Serial.read() == 2) {
       if(Serial.readBytesUntil((char)4, rxbuffer, BUFFER_STRING_SIZE)) { // if successful
