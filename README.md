@@ -7,9 +7,11 @@ The console has an RTD port used normally for Venus scoreboards. It is just a si
 
 Schematic of the hardware-based decoder:
 
-<img src='https://raw.github.com/xyk2/daktronics/master/img/back_panel.png'/>
+<!-- <img src='https://raw.github.com/xyk2/daktronics/master/img/back_panel.png'/>
 <img src='https://raw.github.com/xyk2/daktronics/master/img/decoder_schematic.png'/>
-<img src='https://raw.github.com/xyk2/daktronics/master/img/graphic_sample.png'/>
+<img src='https://raw.github.com/xyk2/daktronics/master/img/graphic_sample.png'/> -->
+<img src='https://raw.github.com/xyk2/daktronics/master/img/readme.png'/>
+
 
 
 License
