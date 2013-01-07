@@ -12,7 +12,9 @@ Data
 There are two types of data packets: running time and splits. Each packet is composed of a prefix (`t` for running time and `s` for splits), the packet data, and a carriage return, which serves as the delimiting character. 
 
 Typical data packets would look like this:
+
 `t1:02.1` - pretty self explanatory
+
 `s3 1 1:11.63 2` - four data points, which are ordered as follows:
 
 * Lane number
