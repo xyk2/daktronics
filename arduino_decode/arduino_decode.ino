@@ -16,6 +16,8 @@ void setup() {
     RUN_TEST_MODE();
     while(1) {}; // enter infinite loop
   }
+  Serial.println("t0.0");
+   Serial.println("r");
   inputString.reserve(BUFFER_STRING_SIZE);
   oldString.reserve(BUFFER_STRING_SIZE);
 }
@@ -36,7 +38,9 @@ void loop() {
             else if((PINB & (1<<PORTB1)) == 0 && oldString != inputString) { // if split is different from last split transmission
               PORTB = (1<<PORTB0);
               Serial.print("s"); // s for split
+              inputString = inputString.substring(21);
               Serial.println(inputString.substring(0,4) + ' ' + inputString.substring(4));
+             
               oldString = inputString;
               PORTB = (0<<PORTB0);
             }
